@@ -6,7 +6,7 @@ import os
 import binascii
 from fastapi import Request
 from fastapi.security.utils import get_authorization_scheme_param
-from data.repositories.auth_repository import AuthenticationRepositories
+from data.repositories.auth_repository import SqlAlchemyRepoImpl
 from domain.entities.user import ChangePasswordModel, UserAuthModel, UserCreateModel, VerificationModel, VerifyModel, \
     UpdateNameModel
 from domain.repositories.auth_repositories import AuthenticationRepo
@@ -15,7 +15,7 @@ from data.utils.jwt_handler import decode_jwt
 
 
 class AuthenticationUsecase(AuthenticationRepo):
-    def __init__(self, auth=AuthenticationRepositories()):
+    def __init__(self, auth=SqlAlchemyRepoImpl()):
         self.authentication_repository = auth
         pass
 
