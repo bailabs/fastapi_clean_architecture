@@ -6,6 +6,7 @@ from domain.entities.user import ChangePasswordModel, UserAuthModel, UserCreateM
 from fastapi import Request
 from abc import ABC, abstractmethod
 
+
 class AuthenticationRepo(ABC):
     @abstractmethod
     def auth(self, params: UserAuthModel) -> object:
@@ -18,7 +19,7 @@ class AuthenticationRepo(ABC):
         pass
 
     @abstractmethod
-    def register(self, request: Request, params: UserCreateModel, templates) -> object:
+    def register(self, request: Request, params: UserCreateModel, templates: any) -> object:
         """
         Used to register user
         @parameters:
@@ -65,7 +66,7 @@ class AuthenticationRepo(ABC):
         pass
 
     @abstractmethod
-    def send_verification(self, request: Request, params: VerificationModel) -> object:
+    def send_verification(self, request: Request, user_id: str, code: any, params: VerificationModel) -> object:
         """
         Used to send email verification to user's email
         @parameters

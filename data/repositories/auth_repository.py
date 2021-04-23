@@ -3,6 +3,7 @@ import hashlib
 from app.boot.engine import SessionLocal
 from data.utils.jwt_handler import sign_jwt
 from sqlalchemy.exc import SQLAlchemyError
+from fastapi import Request
 
 # PARAMS MODELS
 from domain.entities.user import ChangePasswordModel, UserAuthModel, UserCreateModel, VerificationModel, VerifyModel, \
@@ -35,7 +36,7 @@ class SqlAlchemyRepoImpl(AuthenticationRepo):
 
         return Response.failure(status_code=401, message="Invalid Login")
 
-    def register(self, params: UserCreateModel):
+    def register(self, request: Request, params: UserCreateModel, templates):
         self.session = SessionLocal()
         try:
             salt = os.urandom(32)
@@ -108,7 +109,7 @@ class SqlAlchemyRepoImpl(AuthenticationRepo):
         self.session.commit()
         return Response.success()
 
-    def send_verification(self, user_id: str, code: any, params: VerificationModel):
+    def send_verification(self, request, user_id: str, code: any, params: VerificationModel):
         self.session = SessionLocal()
         user = self.session.query(User).filter_by(id=user_id).first()
 
