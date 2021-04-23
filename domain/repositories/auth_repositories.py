@@ -2,8 +2,8 @@
 ABSTRACT CLASSES HERE
 """
 from domain.entities.user import ChangePasswordModel, UserAuthModel, UserCreateModel, VerificationModel, VerifyModel, \
-    UpdateNameModel
-from fastapi import Request
+    UpdateNameModel, Request
+
 from abc import ABC, abstractmethod
 
 
