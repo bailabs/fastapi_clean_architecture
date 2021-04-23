@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, Request
 from fastapi.templating import Jinja2Templates
-from domain.usecases.auth_usecase import AuthenticationUsecase
+from domain.usecases.AuthenticationUsecase import AuthenticationUsecase
 from data.utils.bearer import JWTBearer
 from domain.entities.user import UserCreateModel, UserAuthModel, ChangePasswordModel, UpdateNameModel, \
     VerificationModel, VerifyModel

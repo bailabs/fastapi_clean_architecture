@@ -6,10 +6,10 @@ import os
 import binascii
 from fastapi import Request
 from fastapi.security.utils import get_authorization_scheme_param
-from data.repositories.auth_repository import SqlAlchemyRepoImpl
+from data.repositories.SqlAlchemyRepoImpl import SqlAlchemyRepoImpl
 from domain.entities.user import ChangePasswordModel, UserAuthModel, UserCreateModel, VerificationModel, VerifyModel, \
     UpdateNameModel
-from domain.repositories.auth_repositories import AuthenticationRepo
+from domain.repositories.AuthenticationRepo import AuthenticationRepo
 from app.boot.tables import BlackListedAuthToken
 from data.utils.jwt_handler import decode_jwt
 

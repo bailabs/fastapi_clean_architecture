@@ -16,7 +16,7 @@ from app.boot.tables import UserInfo
 # Mailer
 from data.utils.elasticemail import send_email
 from data.utils.response_object import ResponseObject as Response
-from domain.repositories.auth_repositories import AuthenticationRepo
+from domain.repositories.AuthenticationRepo import AuthenticationRepo
 
 class SqlAlchemyRepoImpl(AuthenticationRepo):
 
