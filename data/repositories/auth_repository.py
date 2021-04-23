@@ -17,7 +17,7 @@ from data.utils.elasticemail import send_email
 from data.utils.response_object import ResponseObject as Response
 from domain.repositories.auth_repositories import AuthenticationRepo
 
-class AuthenticationRepositories(AuthenticationRepo):
+class SqlAlchemyRepoImpl(AuthenticationRepo):
 
     def __init__(self):
         self.session = SessionLocal()
