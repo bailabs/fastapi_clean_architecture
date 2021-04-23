@@ -13,7 +13,7 @@ Run alembic migration to setup database
 
 Install required dependencies
 
-```python3 -m pip install requirements/pkg.whl```
+```python3 -m pip install requirements/fastapi_clean_pkg-0.1.0-py3-none-any.whl```
 
 Run server through uvicorn
 
