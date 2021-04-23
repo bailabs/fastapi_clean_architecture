@@ -1,19 +1,23 @@
-# Rent-o-matic
+# api_auth
 
-A demo implementation of a clean architecture in Python.
+## Overview
+The Authentication API of My Company.
+Powered by [FastAPI](https://fastapi.tiangolo.com/) and SQL Alchemy.
 
-The goal of the "Rent-o-matic" project (fans of Day of the Tentacle may get the reference) is to create a simple search engine on top of a dataset of objects which are described by some quantities. The search engine shall allow to set some filters to narrow the search.
+## How to Install
 
-The objects in the dataset are storage rooms for rent described by the following quantities:
+Install required dependencies
 
-* An unique identifier
-* A size in square meters
-* A renting price in Euro/day
-* Latitude and longitude
+```python3 -m pip install requirements/pkg.whl```
 
-The project is explained in detail and developed step-by-step in this post [Clean architectures in Python: a step-by-step example
-](https://www.thedigitalcatonline.com/blog/2016/11/14/clean-architectures-in-python-a-step-by-step-example/).
+Run server through uvicorn
 
+`uvicorn main:app --reload`
+and wait for it to complete making the database users.db
 
-This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and my [Python project template](https://github.com/lgiordani/cookiecutter-pypackage)
+Run alembic migration for any updates
 
+`alembic upgrade head`
+
+## Endpoints
+  visit `http://localhost:8000/docs`
