@@ -12,7 +12,7 @@ def sign_jwt(user_id: str) -> Dict[str, str]:
     payload = {
         "user_id": user_id,
         "exp": ACCESS_TOKEN_EXPIRE_DAYS,
-        "iat": datetime.now()
+        "iat": datetime.now(),
     }
     token = jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM)
 
@@ -23,5 +23,5 @@ def decode_jwt(token: str) -> dict:
     try:
         decoded_token = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         return decoded_token if decoded_token["exp"] >= time.time() else None
-    except:
+    except Exception:
         return {}

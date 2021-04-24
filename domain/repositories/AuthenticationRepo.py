@@ -1,8 +1,15 @@
 """
 ABSTRACT CLASSES HERE
 """
-from domain.entities.user import ChangePasswordModel, UserAuthModel, UserCreateModel, VerificationModel, VerifyModel, \
-    UpdateNameModel, Request
+from domain.entities.user import (
+    ChangePasswordModel,
+    UserAuthModel,
+    UserCreateModel,
+    VerificationModel,
+    VerifyModel,
+    UpdateNameModel,
+    Request,
+)
 
 from abc import ABC, abstractmethod
 
@@ -19,7 +26,9 @@ class AuthenticationRepo(ABC):
         pass
 
     @abstractmethod
-    def register(self, request: Request, params: UserCreateModel, templates: any) -> object:
+    def register(
+        self, request: Request, params: UserCreateModel, templates: any
+    ) -> object:
         """
         Used to register user
         @parameters:
@@ -66,7 +75,13 @@ class AuthenticationRepo(ABC):
         pass
 
     @abstractmethod
-    def send_verification(self, request: Request, user_id: str, code: any, params: VerificationModel) -> object:
+    def send_verification(
+        self,
+        request: Request,
+        user_id: str,
+        code: any,
+        params: VerificationModel,
+    ) -> object:
         """
         Used to send email verification to user's email
         @parameters
@@ -79,6 +94,7 @@ class AuthenticationRepo(ABC):
         """
         Used to verify user
         @parameters
-        code: str -> code from the email sent to user from using send_verification
+        code: str -> code from the email sent to user from using
+                     send_verification
         """
         pass

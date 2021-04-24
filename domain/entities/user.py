@@ -6,6 +6,7 @@ ENTITY MODELS HERE
 from pydantic import BaseModel
 from fastapi import Request
 
+
 class UserCreateModel(BaseModel):
     identifier: str
     password: str

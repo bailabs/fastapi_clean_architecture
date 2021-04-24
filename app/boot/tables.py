@@ -1,4 +1,11 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, UniqueConstraint
+from sqlalchemy import (
+    Boolean,
+    Column,
+    ForeignKey,
+    Integer,
+    String,
+    UniqueConstraint,
+)
 from sqlalchemy.orm import relationship
 
 from sqlalchemy.ext.declarative import declarative_base
@@ -18,7 +25,9 @@ class User(Base):
     is_active = Column(Boolean, default=True)
     is_verified = Column(Boolean, default=False)
     user_info = relationship("UserInfo", back_populates="user")
-    __table_args__ = tuple(UniqueConstraint('id', 'identifier', 'email', name="users_uc"))
+    __table_args__ = tuple(
+        UniqueConstraint("id", "identifier", "email", name="users_uc")
+    )
 
 
 class UserInfo(Base):

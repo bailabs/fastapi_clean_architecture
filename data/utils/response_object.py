@@ -10,7 +10,9 @@ class ResponseObject(object):
     @classmethod
     def failure(cls, **kwargs):
         if "status_code" in kwargs:
-            raise HTTPException(status_code=kwargs['status_code'], detail=kwargs['message'])
+            raise HTTPException(
+                status_code=kwargs["status_code"], detail=kwargs["message"]
+            )
         return cls(False, **kwargs)
 
     @classmethod

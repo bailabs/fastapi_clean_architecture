@@ -13,7 +13,9 @@ origins = [
 ]
 
 app = FastAPI()
-app.mount("/public/static", StaticFiles(directory="public/static"), name="static")
+app.mount(
+    "/public/static", StaticFiles(directory="public/static"), name="static"
+)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -39,10 +41,10 @@ def action_not_allowed(request: Request, e):
 
 
 @app.get("/")
-def root(request: Request):
+def root_get(request: Request):
     return templates.TemplateResponse("404.html", {"request": request})
 
 
 @app.post("/")
-def root(request: Request):
+def root_post(request: Request):
     return templates.TemplateResponse("404.html", {"request": request})
