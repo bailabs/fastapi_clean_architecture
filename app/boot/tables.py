@@ -5,13 +5,26 @@ from sqlalchemy import (
     Integer,
     String,
     UniqueConstraint,
+    DateTime
 )
 from sqlalchemy.orm import relationship
-
+from sqlalchemy.sql import func, expression
+from sqlalchemy.sql import expression
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.ext.compiler import compiles
 from app.boot.engine import engine
 
 Base = declarative_base()
+
+
+class UtcNow(expression.FunctionElement):
+    type = DateTime()
+
+
+@compiles(UtcNow, 'sqlite')
+def pg_utcnow(element, compiler, **kw):
+    return "TIMEZONE('utc', CURRENT_TIMESTAMP)"
+
 
 
 class User(Base):
@@ -23,11 +36,14 @@ class User(Base):
     salt = Column(String(500))
     key = Column(String(500))
     is_active = Column(Boolean, default=True)
-    is_verified = Column(Boolean, default=False)
+    is_verified = Column(Boolean, default=True)
     user_info = relationship("UserInfo", back_populates="user")
     __table_args__ = tuple(
         UniqueConstraint("id", "identifier", "email", name="users_uc")
     )
+    creation = Column(DateTime, server_default=UtcNow())
+    modified = Column(DateTime, server_default=UtcNow(), onupdate=UtcNow())
+    modified_by = Column(String)
 
 
 class UserInfo(Base):
@@ -40,6 +56,9 @@ class UserInfo(Base):
     description = Column(String, index=True)
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", back_populates="user_info")
+    creation = Column(DateTime, server_default=UtcNow())
+    modified = Column(DateTime, server_default=UtcNow(), onupdate=UtcNow())
+    modified_by = Column(String)
 
 
 class BlackListedAuthToken(Base):

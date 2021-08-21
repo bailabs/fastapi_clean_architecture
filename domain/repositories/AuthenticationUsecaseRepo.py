@@ -14,7 +14,7 @@ from domain.entities.user import (
 from abc import ABC, abstractmethod
 
 
-class AuthenticationRepo(ABC):
+class AuthenticationUsecaseRepo(ABC):
     @abstractmethod
     def auth(self, params: UserAuthModel) -> object:
         """
@@ -27,7 +27,7 @@ class AuthenticationRepo(ABC):
 
     @abstractmethod
     def register(
-        self, params: UserCreateModel
+        self, request: Request, params: UserCreateModel, templates: any
     ) -> object:
         """
         Used to register user

@@ -1,0 +1,11 @@
+Deliverables:
+1. New look and feel of the website
+2. Driver Application Scheduling Module
+-- Admin panel:
+----Manage admins
+----Manage available schedules (open date or close date)
+----Audit logs(actions of admins with timestamp)
+-- Public / driver application form:
+----Choose preferred date according to opened schedules by admin
+----Submit driver data (Basic KYC: name, address, birthday, attachments: id, vehicle)
+3. done ganun lang kabilis

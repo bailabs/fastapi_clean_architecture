@@ -49,9 +49,9 @@ class SqlAlchemyRepoImpl(AuthenticationRepo):
             if to_compare == key:
                 return Response.success(access_token=sign_jwt(user.id))
 
-        return Response.failure(status_code=401, message="Invalid Login")
+        return Response.failure(status_code=403, message="Invalid Login")
 
-    def register(self, request: Request, params: UserCreateModel, templates):
+    def register(self, params: UserCreateModel):
         self.session = SessionLocal()
         try:
             salt = os.urandom(32)
@@ -147,47 +147,47 @@ class SqlAlchemyRepoImpl(AuthenticationRepo):
         self.session.commit()
         return Response.success()
 
-    def send_verification(
-        self, request, user_id: str, code: any, params: VerificationModel
-    ):
-        self.session = SessionLocal()
-        user = self.session.query(User).filter_by(id=user_id).first()
-
-        user.verification_code = code
-        self.session.commit()
-        callback = params.callback_url + "?code=" + code
-
-        if user.is_verified:
-            return Response.failure(error="User already verified")
-
-        with open("../utils/verification_email.html", "r") as file:
-            verification_email = file.read().replace("\n", "")
-
-        verification_email = verification_email.replace(
-            "THECALLBACKURL", callback
-        )
-        if user.email:
-            send_email(
-                user.email,
-                "Company Verification Email",
-                verification_email,
-                verification_email,
-                "admin@email.test",
-                "My Company",
-                "admin@email.test",
-                "Do not reply",
-                "My Company",
-            )
-        else:
-            return Response.failure(error="No email found")
-        return Response.success()
-
-    def verify(self, user_id: str, params: VerifyModel):
-        self.session = SessionLocal()
-        user = self.session.query(User).filter_by(id=user_id).first()
-        if user.verification_code == params.code:
-            user.is_verified = 1
-            self.session.commit()
-            return Response.success()
-
-        return Response.failure()
+    # def send_verification(
+    #     self, request, user_id: str, code: any, params: VerificationModel
+    # ):
+    #     self.session = SessionLocal()
+    #     user = self.session.query(User).filter_by(id=user_id).first()
+    #
+    #     user.verification_code = code
+    #     self.session.commit()
+    #     callback = params.callback_url + "?code=" + code
+    #
+    #     if user.is_verified:
+    #         return Response.failure(error="User already verified")
+    #
+    #     with open("../utils/verification_email.html", "r") as file:
+    #         verification_email = file.read().replace("\n", "")
+    #
+    #     verification_email = verification_email.replace(
+    #         "THECALLBACKURL", callback
+    #     )
+    #     if user.email:
+    #         send_email(
+    #             user.email,
+    #             "Company Verification Email",
+    #             verification_email,
+    #             verification_email,
+    #             "admin@email.test",
+    #             "My Company",
+    #             "admin@email.test",
+    #             "Do not reply",
+    #             "My Company",
+    #         )
+    #     else:
+    #         return Response.failure(error="No email found")
+    #     return Response.success()
+    #
+    # def verify(self, user_id: str, params: VerifyModel):
+    #     self.session = SessionLocal()
+    #     user = self.session.query(User).filter_by(id=user_id).first()
+    #     if user.verification_code == params.code:
+    #         user.is_verified = 1
+    #         self.session.commit()
+    #         return Response.success()
+    #
+    #     return Response.failure()
