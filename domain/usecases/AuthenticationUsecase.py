@@ -16,9 +16,7 @@ from domain.entities.user import (
     UpdateNameModel,
 )
 from domain.repositories.AuthenticationRepo import AuthenticationRepo
-from domain.repositories.AuthenticationUsecaseRepo import (
-    AuthenticationUsecaseRepo,
-)
+from domain.repositories.AuthenticationUsecaseRepo import AuthenticationUsecaseRepo
 from app.boot.tables import BlackListedAuthToken
 from data.utils.jwt_handler import decode_jwt
 

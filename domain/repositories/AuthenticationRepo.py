@@ -26,7 +26,9 @@ class AuthenticationRepo(ABC):
         pass
 
     @abstractmethod
-    def register(self, params: UserCreateModel) -> object:
+    def register(
+        self, params: UserCreateModel
+    ) -> object:
         """
         Used to register user
         @parameters:

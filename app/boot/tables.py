@@ -5,10 +5,11 @@ from sqlalchemy import (
     Integer,
     String,
     UniqueConstraint,
-    DateTime,
+    DateTime
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func, expression
+from sqlalchemy.sql import expression
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.ext.compiler import compiles
 from app.boot.engine import engine
@@ -20,9 +21,10 @@ class UtcNow(expression.FunctionElement):
     type = DateTime()
 
 
-@compiles(UtcNow, "sqlite")
+@compiles(UtcNow, 'sqlite')
 def pg_utcnow(element, compiler, **kw):
     return "TIMEZONE('utc', CURRENT_TIMESTAMP)"
+
 
 
 class User(Base):
