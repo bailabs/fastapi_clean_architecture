@@ -20,7 +20,7 @@ auth = AuthenticationUsecase()
 templates = Jinja2Templates(directory="public/templates")
 
 
-@public.post("/register")
+@public.post("/create")
 def create_user(request: Request, params: UserCreateModel):
     return auth.register(request, params, templates)
 
@@ -50,11 +50,11 @@ def update_name(request: Request, params: UpdateNameModel):
     return auth.update_name(request, params)
 
 
-# @protected.post("/send_verification")
-# def send_verification(request: Request, params: VerificationModel):
-#     return auth.send_verification(request, params)
-#
-#
-# @protected.post("/verify")
-# def verify(request: Request, params: VerifyModel):
-#     return auth.verify(request, params)
+@protected.post("/send_verification")
+def send_verification(request: Request, params: VerificationModel):
+    return auth.send_verification(request, params)
+
+
+@protected.post("/verify")
+def verify(request: Request, params: VerifyModel):
+    return auth.verify(request, params)

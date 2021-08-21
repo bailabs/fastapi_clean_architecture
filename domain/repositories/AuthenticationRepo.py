@@ -27,7 +27,7 @@ class AuthenticationRepo(ABC):
 
     @abstractmethod
     def register(
-        self, params: UserCreateModel
+        self, request: Request, params: UserCreateModel, templates: any
     ) -> object:
         """
         Used to register user
@@ -74,25 +74,27 @@ class AuthenticationRepo(ABC):
         """
         pass
 
-    # @abstractmethod
-    # def send_verification(
-    #     self,
-    #     request: Request,
-    #     params: VerificationModel,
-    # ) -> object:
-    #     """
-    #     Used to send email verification to user's email
-    #     @parameters
-    #     callback_url: str -> Url to display after button click
-    #     """
-    #     pass
-    #
-    # @abstractmethod
-    # def verify(self, request: Request, params: VerifyModel) -> object:
-    #     """
-    #     Used to verify user
-    #     @parameters
-    #     code: str -> code from the email sent to user from using
-    #                  send_verification
-    #     """
-    #     pass
+    @abstractmethod
+    def send_verification(
+        self,
+        request: Request,
+        user_id: str,
+        code: any,
+        params: VerificationModel,
+    ) -> object:
+        """
+        Used to send email verification to user's email
+        @parameters
+        callback_url: str -> Url to display after button click
+        """
+        pass
+
+    @abstractmethod
+    def verify(self, request: Request, params: VerifyModel) -> object:
+        """
+        Used to verify user
+        @parameters
+        code: str -> code from the email sent to user from using
+                     send_verification
+        """
+        pass

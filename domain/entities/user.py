@@ -11,9 +11,9 @@ class UserCreateModel(BaseModel):
     identifier: str
     password: str
     email: str
-    firstname: str
-    lastname: str
-    fullname: str
+    firstname: str = ""
+    lastname: str = ""
+    fullname: str = ""
 
 
 class UserAuthModel(BaseModel):

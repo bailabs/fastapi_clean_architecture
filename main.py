@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -49,8 +48,3 @@ def root_get(request: Request):
 @app.post("/")
 def root_post(request: Request):
     return templates.TemplateResponse("404.html", {"request": request})
-
-
-def start():
-    """Launched with `poetry run start` at root level"""
-    uvicorn.run("app.main:app", host="0.0.0.0", port=8080, reload=True)

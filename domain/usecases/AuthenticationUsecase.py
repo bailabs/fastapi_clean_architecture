@@ -16,12 +16,11 @@ from domain.entities.user import (
     UpdateNameModel,
 )
 from domain.repositories.AuthenticationRepo import AuthenticationRepo
-from domain.repositories.AuthenticationUsecaseRepo import AuthenticationUsecaseRepo
 from app.boot.tables import BlackListedAuthToken
 from data.utils.jwt_handler import decode_jwt
 
 
-class AuthenticationUsecase(AuthenticationUsecaseRepo):
+class AuthenticationUsecase(AuthenticationRepo):
     def __init__(self, auth=SqlAlchemyRepoImpl()):
         self.authentication_repository = auth
         pass
@@ -77,26 +76,28 @@ class AuthenticationUsecase(AuthenticationUsecaseRepo):
             )
             return self.authentication_repository.update_name(user_id, params)
 
-    # def send_verification(
-    #     self,
-    #     request: Request,
-    #     params: VerificationModel,
-    # ):
-    #     _, credentials = get_authorization_scheme_param(
-    #         request.headers.get("authorization")
-    #     )
-    #     decoded = decode_jwt(credentials)
-    #     user_id = decoded["user_id"]
-    #     salt = os.urandom(32)
-    #     code = binascii.hexlify(salt).decode()
-    #     return self.authentication_repository.send_verification(
-    #         request, user_id, code, params
-    #     )
-    #
-    # def verify(self, request: Request, params: VerifyModel):
-    #     _, credentials = get_authorization_scheme_param(
-    #         request.headers.get("authorization")
-    #     )
-    #     decoded = decode_jwt(credentials)
-    #     user_id = decoded["user_id"]
-    #     return self.authentication_repository.verify(user_id, params)
+    def send_verification(
+        self,
+        request: Request,
+        user_id: str,
+        code: any,
+        params: VerificationModel,
+    ):
+        _, credentials = get_authorization_scheme_param(
+            request.headers.get("authorization")
+        )
+        decoded = decode_jwt(credentials)
+        user_id = decoded["user_id"]
+        salt = os.urandom(32)
+        code = binascii.hexlify(salt).decode()
+        return self.authentication_repository.send_verification(
+            request, user_id, code, params
+        )
+
+    def verify(self, request: Request, params: VerifyModel):
+        _, credentials = get_authorization_scheme_param(
+            request.headers.get("authorization")
+        )
+        decoded = decode_jwt(credentials)
+        user_id = decoded["user_id"]
+        return self.authentication_repository.verify(user_id, params)
